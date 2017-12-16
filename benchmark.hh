@@ -4,6 +4,7 @@
 #include <chrono>
 #include <iostream>
 #include <string>
+#include <atomic>
 
 namespace rnicholl
 {
@@ -23,12 +24,13 @@ namespace rnicholl
 	func();
 	s ++;
 	end = high_resolution_clock::now();
+	std::atomic_signal_fence(std::memory_order::memory_order_seq_cst);
       }
     while ( end - start < chrono::seconds(30) );
 
     double ct = s;
 
-    os <<  s << endl;
+    os << str << ": " << s << endl;
   }
 }
 
